@@ -1,0 +1,33 @@
+{
+  "name": "partite",
+  "version": "0.1.0",
+  "description": "Build, integrate, debug, and evaluate Partite meshes, and author Particle tools.",
+  "author": {
+    "name": "Partite.ai",
+    "url": "https://partite.ai"
+  },
+  "homepage": "https://docs.partite.ai/",
+  "repository": "https://github.com/partite-ai/partite-skills",
+  "license": "FSL-1.1-ALv2",
+  "keywords": [
+    "partite",
+    "mesh",
+    "agents",
+    "skills",
+    "particles"
+  ],
+  "skills": "./skills/",
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/partite-get-started/SKILL.md"
+    }
+  },
+  "interface": {
+    "displayName": "Partite",
+    "shortDescription": "Build meshes and author Particle tools",
+    "longDescription": "Build, integrate, debug, and evaluate Partite meshes, and author Particle tools.",
+    "developerName": "Partite.ai",
+    "category": "Developer Tools",
+    "websiteURL": "https://partite.ai"
+  }
+}

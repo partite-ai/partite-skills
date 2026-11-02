@@ -1,0 +1,3 @@
+interface:
+  display_name: "Debug a Partite run"
+  short_description: "Diagnose conversations, errors, and traces"

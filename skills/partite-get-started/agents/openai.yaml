@@ -1,0 +1,3 @@
+interface:
+  display_name: "Build and run your first Partite mesh"
+  short_description: "Install the CLI and run a first mesh"

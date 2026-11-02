@@ -1,0 +1,3 @@
+interface:
+  display_name: "Evaluate a Partite mesh"
+  short_description: "Measure mesh quality with Enterprise evals"

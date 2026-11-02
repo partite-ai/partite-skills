@@ -1,0 +1,3 @@
+interface:
+  display_name: "Connect your app to Partite"
+  short_description: "Integrate mesh conversations in your app"

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Write a TypeScript Particle"
+  short_description: "Build Particle tools in TypeScript or JavaScript"

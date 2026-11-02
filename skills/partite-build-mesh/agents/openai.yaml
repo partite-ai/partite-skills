@@ -1,0 +1,3 @@
+interface:
+  display_name: "Build a Partite mesh"
+  short_description: "Create agents, intents, links, and tools"

@@ -1,0 +1,15 @@
+{
+  "name": "partite-skills",
+  "owner": {
+    "name": "Partite.ai",
+    "url": "https://partite.ai"
+  },
+  "plugins": [
+    {
+      "name": "partite",
+      "source": "./",
+      "description": "Build, integrate, debug, and evaluate Partite meshes, and author Particle tools."
+    }
+  ],
+  "description": "Developer skills for Partite Mesh and Particle tools."
+}

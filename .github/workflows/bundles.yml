@@ -1,0 +1,89 @@
+name: Validate and bundle skills
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  GOWORK: 'off'
+  GOFLAGS: '-mod=readonly'
+
+jobs:
+  bundles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      - name: Verify modules
+        run: go mod verify
+      - name: Vet build tooling
+        run: go vet ./...
+      - name: Validate packages
+        run: go run ./cmd/bundle --check
+      - name: Test release bundles
+        run: go test ./...
+      - name: Build bundles
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          if [[ "$REF_TYPE" == "tag" ]]; then
+            if [[ "$REF_NAME" != v* ]]; then
+              echo 'Release tags must start with v' >&2
+              exit 1
+            fi
+            go run ./cmd/bundle --version "${REF_NAME#v}"
+          else
+            go run ./cmd/bundle
+          fi
+      - name: Upload downloadable bundles
+        uses: actions/upload-artifact@v7
+        with:
+          name: partite-skills-bundles
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 14
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: bundles
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    concurrency:
+      group: release-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: partite-skills-bundles
+          path: dist
+      - name: Create a draft GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          cd dist
+          sha256sum --check SHA256SUMS
+          cd ..
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo 'A release already exists for this tag; keep published assets unchanged.' >&2
+            exit 1
+          fi
+          flags=()
+          if [[ "$RELEASE_TAG" == *-* ]]; then
+            flags+=(--prerelease)
+          fi
+          gh release create "$RELEASE_TAG" dist/* --verify-tag --draft \
+            --title "Partite skills $RELEASE_TAG" --generate-notes "${flags[@]}"
