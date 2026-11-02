@@ -73,6 +73,22 @@ func expectError(t *testing.T, err error, message string) {
 	}
 }
 
+func TestPluginIdentityIsConsistentAcrossManifests(t *testing.T) {
+	for _, name := range []string{"plugin.json", ".claude-plugin/plugin.json", ".codex-plugin/plugin.json", ".claude-plugin/marketplace.json", ".agents/plugins/marketplace.json"} {
+		t.Run(name, func(t *testing.T) {
+			root := fixture(t)
+			path := filepath.Join(root, name)
+			contents := string(read(t, path))
+			if !strings.Contains(contents, "\"name\": \"partite-ai\"") {
+				t.Fatalf("%s does not declare partite-ai", name)
+			}
+			write(t, path, []byte(strings.Replace(contents, "\"name\": \"partite-ai\"", "\"name\": \"partite\"", 1)))
+			_, err := validate(root, "")
+			expectError(t, err, "plugin name")
+		})
+	}
+}
+
 func TestArchivesPreserveSkillsAndHostBoundaries(t *testing.T) {
 	root, output := fixture(t), t.TempDir()
 	index, err := build(root, output, "")
@@ -87,7 +103,7 @@ func TestArchivesPreserveSkillsAndHostBoundaries(t *testing.T) {
 	for _, entry := range entries {
 		expectedSkills = append(expectedSkills, entry.Name())
 	}
-	if !reflect.DeepEqual(index.Skills, expectedSkills) || len(index.Artifacts) != 3 {
+	if index.Name != "partite-ai" || !reflect.DeepEqual(index.Skills, expectedSkills) || len(index.Artifacts) != 3 {
 		t.Fatalf("expected every source skill in three bundles: %+v", index)
 	}
 	for _, artifact := range index.Artifacts {

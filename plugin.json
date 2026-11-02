@@ -1,6 +1,6 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "partite",
+  "name": "partite-ai",
   "version": "0.1.0",
   "description": "Build, integrate, debug, and evaluate Partite meshes, and author Particle tools.",
   "author": {

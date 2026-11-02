@@ -35,11 +35,11 @@ In a Claude Code session:
 
 ```text
 /plugin marketplace add partite-ai/partite-skills
-/plugin install partite@partite-skills
+/plugin install partite-ai@partite-skills
 ```
 
 Start a new session if the client requires it. Try
-`/partite:partite-get-started`, or ask Partite to help you build a first mesh.
+`/partite-ai:partite-get-started`, or ask Partite to help you build a first mesh.
 For a local checkout or an extracted Anthropic bundle, add its absolute directory
 as the marketplace source instead of the GitHub repository name. The bundle
 contains `.claude-plugin/marketplace.json` and `.claude-plugin/plugin.json`.
@@ -56,7 +56,7 @@ codex plugin marketplace add partite-ai/partite-skills
 In clients that support the plugin install command:
 
 ```sh
-codex plugin add partite@partite-skills
+codex plugin add partite-ai@partite-skills
 ```
 
 Otherwise, open the ChatGPT desktop Plugins Directory, select the Partite Skills
