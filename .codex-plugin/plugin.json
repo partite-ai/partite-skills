@@ -1,6 +1,6 @@
 {
-  "name": "partite",
-  "version": "0.1.0",
+  "name": "partite-ai",
+  "version": "0.1.1",
   "description": "Build, integrate, debug, and evaluate Partite meshes, and author Particle tools.",
   "author": {
     "name": "Partite.ai",

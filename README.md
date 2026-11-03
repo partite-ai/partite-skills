@@ -35,11 +35,11 @@ In a Claude Code session:
 
 ```text
 /plugin marketplace add partite-ai/partite-skills
-/plugin install partite@partite-skills
+/plugin install partite-ai@partite-skills
 ```
 
 Start a new session if the client requires it. Try
-`/partite:partite-get-started`, or ask Partite to help you build a first mesh.
+`/partite-ai:partite-get-started`, or ask Partite to help you build a first mesh.
 For a local checkout or an extracted Anthropic bundle, add its absolute directory
 as the marketplace source instead of the GitHub repository name. The bundle
 contains `.claude-plugin/marketplace.json` and `.claude-plugin/plugin.json`.
@@ -56,7 +56,7 @@ codex plugin marketplace add partite-ai/partite-skills
 In clients that support the plugin install command:
 
 ```sh
-codex plugin add partite@partite-skills
+codex plugin add partite-ai@partite-skills
 ```
 
 Otherwise, open the ChatGPT desktop Plugins Directory, select the Partite Skills
@@ -66,7 +66,7 @@ manifest selects `partite-get-started` as the onboarding skill.
 For an extracted OpenAI bundle or a local checkout, register its absolute path
 with `codex plugin marketplace add /path/to/package`. The package includes the
 `.agents/plugins/marketplace.json` catalog. Pin a Git tag when needed with
-`codex plugin marketplace add partite-ai/partite-skills --ref v0.1.0`.
+`codex plugin marketplace add partite-ai/partite-skills --ref v0.1.1`.
 
 ChatGPT workspace admins can instead import the GitHub marketplace through
 Admin > Plugins. Workspace imports follow workspace access policies. This is
@@ -77,10 +77,10 @@ CLI; installing this package does not supply those capabilities to every chat.
 ### Pi
 
 ```sh
-pi install git:github.com/partite-ai/partite-skills@v0.1.0
+pi install git:github.com/partite-ai/partite-skills@v0.1.1
 ```
 
-Use a published tag, or omit `@v0.1.0` to follow the repository's default branch.
+Use a published tag, or omit `@v0.1.1` to follow the repository's default branch.
 The package declares only `skills/`; it adds no extensions or install hooks.
 For an extracted standard bundle, use `pi install /path/to/package`.
 
@@ -136,7 +136,7 @@ tools. Installing the skill package does not install that CLI. The concepts
 skill needs no CLI or credentials.
 
 Use `--output /path/to/directory` to choose an output directory, and
-`--version 0.1.0` to require a matching package version before building. The
+`--version 0.1.1` to require a matching package version before building. The
 `--root` flag selects the package root when running a compiled bundler elsewhere.
 
 The validator checks frontmatter, package names and versions, bundled reference
@@ -156,7 +156,7 @@ and publishes it. No action submits to a public plugin store or publishes to npm
 For a new version, update `package.json`, `plugin.json`,
 `.claude-plugin/plugin.json`, and `.codex-plugin/plugin.json` together. All four
 versions must match. Tag names must match that version with a `v` prefix. For
-example, `v0.1.0` requires version `0.1.0`. Prerelease tags such as `v0.2.0-beta.1`
+example, `v0.1.1` requires version `0.1.1`. Prerelease tags such as `v0.2.0-beta.1`
 are supported. Existing release assets are never overwritten automatically.
 
 Repository marketplace installs read repository content, not GitHub Release

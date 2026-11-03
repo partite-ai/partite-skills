@@ -17,6 +17,8 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+const pluginName = "partite-ai"
+
 const portableSchema = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
 
 var (
@@ -330,7 +332,7 @@ func validate(root, expectedVersion string) (manifest, error) {
 	if err != nil {
 		return manifest{}, err
 	}
-	index := manifest{Name: "partite", Version: version}
+	index := manifest{Name: pluginName, Version: version}
 	for _, entry := range entries {
 		if !entry.IsDir() || entry.Type()&os.ModeSymlink != 0 {
 			return manifest{}, fmt.Errorf("%s: expected a skill directory", entry.Name())
@@ -375,7 +377,7 @@ func validateManifests(root, version string, packageInfo map[string]any) error {
 		if err != nil {
 			return err
 		}
-		if plugin["name"] != "partite" || plugin["version"] != version {
+		if plugin["name"] != pluginName || plugin["version"] != version {
 			return fmt.Errorf("%s: plugin name or version differs from package.json", filename)
 		}
 		if err := text(plugin["description"], filename+": description", 0); err != nil {
@@ -411,7 +413,7 @@ func validateManifests(root, version string, packageInfo map[string]any) error {
 			return fmt.Errorf("%s: expected the partite-skills marketplace with one plugin", filename)
 		}
 		entry, ok := entries[0].(map[string]any)
-		if !ok || entry["name"] != "partite" {
+		if !ok || entry["name"] != pluginName {
 			return fmt.Errorf("%s: plugin name differs", filename)
 		}
 		if strings.HasPrefix(filename, ".claude") {

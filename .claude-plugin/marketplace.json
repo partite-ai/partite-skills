@@ -6,7 +6,7 @@
   },
   "plugins": [
     {
-      "name": "partite",
+      "name": "partite-ai",
       "source": "./",
       "description": "Build, integrate, debug, and evaluate Partite meshes, and author Particle tools."
     }
