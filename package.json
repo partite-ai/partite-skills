@@ -1,6 +1,6 @@
 {
   "name": "@partite-ai/skills",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Build, integrate, debug, and evaluate Partite meshes, and author Particle tools.",
   "private": true,
   "license": "FSL-1.1-ALv2",

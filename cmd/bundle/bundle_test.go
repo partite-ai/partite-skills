@@ -229,7 +229,15 @@ func TestReleaseVersionMustMatchManifests(t *testing.T) {
 	_, err := validate(root, "9.9.9")
 	expectError(t, err, "differs from package version")
 	path := filepath.Join(root, ".claude-plugin/plugin.json")
-	data := bytes.Replace(read(t, path), []byte(`"version": "0.1.0"`), []byte(`"version": "9.9.9"`), 1)
+	plugin, err := readJSON(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	plugin["version"] = "9.9.9"
+	data, err := json.Marshal(plugin)
+	if err != nil {
+		t.Fatal(err)
+	}
 	write(t, path, data)
 	_, err = validate(root, "")
 	expectError(t, err, "version differs")
